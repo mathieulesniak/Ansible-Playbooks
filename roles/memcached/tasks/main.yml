@@ -1,0 +1,7 @@
+---
+- name: Install default package
+  apt: pkg=memcached state=present
+
+# Ensure service is running.
+- name: Ensure deamon is running correctly
+  service: name=memcached state=started
