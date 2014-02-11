@@ -1,0 +1,11 @@
+---
+vhosts:
+  - site_name:      testsite1.com
+    vhost:          testsite1.com
+    create_docroot: true
+    docroot:        testsitedoc
+
+  - site_name: testsite2.com
+    vhost:          testsite1.com
+    create_docroot: true
+    docroot: testsitedoc2

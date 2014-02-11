@@ -1,0 +1,32 @@
+---
+- name: Common | Apache
+  action: apt pkg=apache2 state=installed
+
+- name: Common | Apache required modules
+  action: command a2enmod {{ item }}
+  notify: restart apache
+  with_items:
+    - rewrite 
+    - vhost_alias
+    - headers
+    - expires
+    - filter
+    - ssl
+
+
+- name: Apache | Virtualhost add | Create VHosts configuration
+  template: src=vhosts.conf.j2 dest=/etc/apache2/sites-available/{{ item.site_name }}
+  with_items: vhosts
+
+- name: Apache | Virtualhost add | Create document root
+  file:
+    path={{ docroot }}{{ item.docroot }}
+    state=directory
+  when: item.create_docroot
+  with_items: vhosts
+
+- name: Apache | Virtualhost add | Activate virtual host
+  command: /usr/sbin/a2ensite {{ item.site_name }} creates=/etc/apache2/sites-enabled/{{ item.site_name }}
+  with_items: vhosts
+  notify:
+  - apache-reload
