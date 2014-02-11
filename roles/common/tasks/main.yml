@@ -1,0 +1,14 @@
+- name: use french debian mirror
+  template: src=sources.list dest=/etc/apt/sources.list
+
+- name: upgrade the distro
+  apt: update_cache=yes upgrade=yes cache_valid_time=3600
+
+- name: Install base common packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - vim
+    - curl
+    - gnupg
+    - rsync
+    - wget
