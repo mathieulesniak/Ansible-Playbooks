@@ -1,0 +1,21 @@
+- name: Common | PHP core and required modules
+  action: apt pkg={{ item }} state=installed
+  notify: restart apache
+  tags: common
+  with_items:
+    - php5
+    - php5-cli
+    - php-apc
+    - php5-mysqlnd
+    - php5-xmlrpc
+    - php-soap
+    - php5-gd
+    - php5-geoip
+    - php5-imagick
+    - php5-sqlite
+    - php5-curl
+    - php5-intl
+    - php5-memcache
+    - php5-memcached
+    - php5-xdebug
+    - php5-mcrypt
