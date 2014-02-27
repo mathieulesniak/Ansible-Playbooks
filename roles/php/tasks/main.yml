@@ -19,3 +19,6 @@
     - php5-memcached
     - php5-xdebug
     - php5-mcrypt
+- name: PHP configuration file, php.ini
+  action: template src=etc-php5-apache2-php-ini.j2 dest=/etc/php5/apache2/php.ini
+  notify: restart apache
